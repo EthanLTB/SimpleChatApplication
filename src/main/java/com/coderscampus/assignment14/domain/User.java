@@ -51,6 +51,10 @@ public void setChannels(List<Channel> channels) {
 public List<Message> getMessages() {
 	return messages;
 }
+@Override
+public String toString() {
+	return "User [userId=" + userId + ", name=" + name + ", channels=" + channels + ", messages=" + messages + "]";
+}
 public void setMessages(List<Message> messages) {
 	this.messages = messages;
 }
