@@ -4,42 +4,42 @@
 <title>Welcome</title>
 
 <script type="text/javascript">
-let user = sessionStorage.getItem("user")
+var user = sessionStorage.getItem("user")
 
-if( user ==  null){
-	createUser
-}
-function createUser() {
-	var username = prompt("Enter Your Name")
-	var user = {
-		name: username,
-		channels: [],
-		messages: []
+if( user ===  null){
+	let username = prompt("Enter Your Name", "Guest")
+	while( username ===  null || username == ""){
+	username = prompt("Enter Your Name", "Guest")
+
 	}
-	
 	fetch("/user", {
 		method: "POST",
 		headers: {
-			"Content-Type": "application/json"
+			"Content-Type": "application/json",
+	        'Accept': 'application/json'
 		},
-		body: JSON.stringify(user)
-	}).then(response=> response.json()).then(user => sessionStorage.setItem('user', JSON.stringify(user)))
-	}
+		body: JSON.stringify(username)
+	}).then(response => response.json()).then(user => sessionStorage.setItem("user", JSON.stringify(user)))
+	
+	
+	} else {
+	 user = JSON.parse(sessionStorage.getItem("user"))
+	
+}
+
+
 
 </script>
 </head>
 <body>
 <h2>Join A Channel</h2>
 
-<!-- <div > -->
-<!-- <span th:text="${user.name}"></span> -->
-<!-- </div> -->
 <div th:each="channel : ${channels}">
 		<a th:href="@{/channels/{channelId}(channelId=${channel.channelId})}"
 		   th:text="${channel.channelName}"></a>
 </div>
 <hr>
-<form action="/welcome/create" method="post" >
+<form action="/welcome/createChannel" method="post" >
 
 
 				<div>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -20,9 +21,13 @@ public class ChatController {
 	private ChannelService channelService;
 	@Autowired
 	private UserService userService;
-
+	
+	@GetMapping("/")
+public String directToWelcome() {
+		return "redirect:/welcome";
+	}
 	@GetMapping("/welcome")
-	public String getCreateUser(ModelMap model) {
+	public String getWelcomePage(ModelMap model) {
 		
 		List<Channel> channels = channelService.findAll();
 		model.put("channels", channels);
@@ -31,16 +36,23 @@ public class ChatController {
 		return "welcome";
 	}
 	
-	@PostMapping("/welcome/create")
+	@GetMapping("/channels/{channelId}")
+	public String getOneChannel(@PathVariable Long channelId) {
+		
+		return "channel";
+	}
+	
+	@PostMapping("/welcome/createChannel")
 	public String createNewChannel(Channel channel) {
 		channelService.save(channel);
 		return "redirect:/welcome";
 	}
 	
-	@PostMapping("/welcome/user")
-	public String createUser(@RequestBody User user) {
-		userService.save(user);
-		System.out.println(user.toString());
-		return "redirect:/welcome";
+	@PostMapping("/user")
+	public User createUser(@RequestBody String username) {
+		User bob = userService.createUser(username);
+		System.out.println(bob);
+		return bob;
+		
 	}
 }

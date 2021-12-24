@@ -13,6 +13,15 @@ private UserRepository userRepo;
 		userRepo.save(user);
 		
 	}
+	
+	public  User createUser(String username) {
+		User user = new User();
+		user.setName(username);
+		userRepo.save(user);
+		return user;
+		
+	}
+	
 	public User findByName(String name) {
 	
 		return userRepo.findByName(name);
