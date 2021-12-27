@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.coderscampus.assignment14.domain.Channel;
+import com.coderscampus.assignment14.domain.Message;
 import com.coderscampus.assignment14.domain.User;
 import com.coderscampus.assignment14.service.ChannelService;
+import com.coderscampus.assignment14.service.MessageService;
 import com.coderscampus.assignment14.service.UserService;
 
 @Controller
@@ -21,6 +24,8 @@ public class ChatController {
 	private ChannelService channelService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private MessageService messageService;
 	
 	@GetMapping("/")
 public String directToWelcome() {
@@ -42,17 +47,23 @@ public String directToWelcome() {
 		return "channel";
 	}
 	
+	@PostMapping("/createMessage")
+	@ResponseBody
+	public Message createMessage(@PathVariable Long channelId, @RequestBody Message message ) {
+		
+		return messageService.createAndAddMessageToChannel(channelId, message);
+	}
+	
 	@PostMapping("/welcome/createChannel")
 	public String createNewChannel(Channel channel) {
 		channelService.save(channel);
 		return "redirect:/welcome";
 	}
 	
-	@PostMapping("/user")
-	public User createUser(@RequestBody String username) {
-		User bob = userService.createUser(username);
-		System.out.println(bob);
-		return bob;
+	@PostMapping("/welcome/createUser")
+	@ResponseBody
+	public User createUser(@RequestBody String username) {	
+		return userService.createUser(username);
 		
 	}
 }

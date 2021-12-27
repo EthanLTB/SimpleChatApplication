@@ -1,5 +1,7 @@
 package com.coderscampus.assignment14.domain;
 
+import java.util.Optional;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -42,8 +44,9 @@ public class Message {
 	public Channel getChannel() {
 		return channel;
 	}
-	public void setChannel(Channel channel) {
-		this.channel = channel;
+	public void setChannel(Channel optional) {
+		this.channel = optional;
 	}
+	
 
 }

@@ -1,6 +1,7 @@
 package com.coderscampus.assignment14.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,4 +23,9 @@ public class ChannelService {
 		
 	}
 
+	public Optional<Channel> findById(Long channelId) {
+		return channelRepo.findById(channelId);
+	}
+
+	
 }
