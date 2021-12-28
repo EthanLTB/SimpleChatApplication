@@ -1,5 +1,6 @@
 package com.coderscampus.assignment14.domain;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.persistence.Entity;
@@ -44,9 +45,33 @@ public class Message {
 	public Channel getChannel() {
 		return channel;
 	}
-	public void setChannel(Channel optional) {
-		this.channel = optional;
+	public void setChannel(Channel channel) {
+		this.channel = channel;
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(messageId);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Message other = (Message) obj;
+		return Objects.equals(messageId, other.messageId);
+	}
+	public void setChannel(Optional<Channel> channelOpt) {
+		this.channel = channelOpt.orElse(new Channel());
+		
+	}
+	public void setUser(Optional<User> userOpt) {
+		this.user = userOpt.orElse(new User());
+		
+	}
+
 	
 
 }

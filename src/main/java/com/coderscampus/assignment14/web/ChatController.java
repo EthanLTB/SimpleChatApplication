@@ -1,6 +1,9 @@
 package com.coderscampus.assignment14.web;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.coderscampus.assignment14.domain.Channel;
 import com.coderscampus.assignment14.domain.Message;
 import com.coderscampus.assignment14.domain.User;
+import com.coderscampus.assignment14.dto.MessageDto;
 import com.coderscampus.assignment14.service.ChannelService;
 import com.coderscampus.assignment14.service.MessageService;
 import com.coderscampus.assignment14.service.UserService;
@@ -43,15 +47,27 @@ public String directToWelcome() {
 	
 	@GetMapping("/channels/{channelId}")
 	public String getOneChannel(@PathVariable Long channelId) {
-		
+//		List<Message> messages = messageService.findAll();
+//		model.put("messages", messages);
 		return "channel";
 	}
 	
-	@PostMapping("/createMessage")
+	@PostMapping("/channels/{channelId}/getMessages")
 	@ResponseBody
-	public Message createMessage(@PathVariable Long channelId, @RequestBody Message message ) {
+	public List<Message> getMessages(@PathVariable Long channelId){
 		
-		return messageService.createAndAddMessageToChannel(channelId, message);
+		List<Message> messages = messageService.findAll();
+		messages.stream().forEach(message -> System.out.println(message.getMessageContent()));
+		return messages;
+		
+	}
+	
+	@PostMapping("/channels/{channelId}/createMessage")
+	@ResponseBody
+	public void createMessage( @RequestBody MessageDto message ) {
+		System.out.println("making new message");
+		messageService.createAndAddMessageToChannel(message);
+		
 	}
 	
 	@PostMapping("/welcome/createChannel")

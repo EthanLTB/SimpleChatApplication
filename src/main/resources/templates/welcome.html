@@ -11,15 +11,17 @@ if( user ===  null){
 	while( username ===  null || username == ""){
 	username = prompt("Enter Your Name", "Guest")
 
-	}
+	} 
 	fetch("/welcome/createUser", {
 		method: "POST",
 		headers: {
 // 			"Content-Type": "application/json",
 		},
 		body: username
-	}).then(response => response.json()).then(user => sessionStorage.setItem("user", user))
+	}).then(response => response.json()).then(user => sessionStorage.setItem("user", JSON.stringify(user)))
 	
+	} else {
+		user = JSON.parse(sessionStorage.getItem("user"))
 	} 
 
 
