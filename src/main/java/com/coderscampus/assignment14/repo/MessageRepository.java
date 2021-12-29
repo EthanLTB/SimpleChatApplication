@@ -1,4 +1,4 @@
-package com.coderscampus.assignment14.service;
+package com.coderscampus.assignment14.repo;
 
 import java.util.List;
 

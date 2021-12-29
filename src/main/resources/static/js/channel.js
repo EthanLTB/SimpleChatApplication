@@ -41,11 +41,14 @@ function submitOnEnter(event) {
 function getMessages(){
 	
 	fetch(`/channels/${channelId}/getMessages`, {
-		method: "POST"
+		method: "POST",
+		headers: {
+				"Content-Type": "application/json"
+		}
 		}).then(response => response.json).then(messages => { 
 //			messageContainer.innerHTML = ''
 //			messages.forEach(message => {
-				console.log(messages)
+				console.log(messages.toString)
 //				messageContainer.innerHTML += `<div>
 //			   	  <span class="name">${user.name}: </span>
 //		  		  <span class="message">${message.messgeContent}</span>

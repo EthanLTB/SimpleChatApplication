@@ -57,8 +57,9 @@ public String directToWelcome() {
 	public List<Message> getMessages(@PathVariable Long channelId){
 		
 		List<Message> messages = messageService.findAll();
-		messages.stream().forEach(message -> System.out.println(message.getMessageContent()));
-		return messages;
+		
+		messages.stream().forEach(message -> System.out.println(message.getUser()));
+		return null;
 		
 	}
 	

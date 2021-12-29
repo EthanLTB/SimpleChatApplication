@@ -63,6 +63,12 @@ public class Message {
 		Message other = (Message) obj;
 		return Objects.equals(messageId, other.messageId);
 	}
+	
+	@Override
+	public String toString() {
+		return "Message [messageId=" + messageId + ", messageContent=" + messageContent + ", user=" + user
+				+ ", channel=" + channel + "]";
+	}
 	public void setChannel(Optional<Channel> channelOpt) {
 		this.channel = channelOpt.orElse(new Channel());
 		
