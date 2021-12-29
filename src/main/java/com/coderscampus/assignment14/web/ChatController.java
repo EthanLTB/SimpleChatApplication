@@ -54,12 +54,12 @@ public String directToWelcome() {
 	
 	@PostMapping("/channels/{channelId}/getMessages")
 	@ResponseBody
-	public List<Message> getMessages(@PathVariable Long channelId){
+	public List<MessageDto> getMessages(){
 		
-		List<Message> messages = messageService.findAll();
+		List<MessageDto> messages = messageService.findAll();
 		
-		messages.stream().forEach(message -> System.out.println(message.getUser()));
-		return null;
+		messages.stream().forEach(message -> System.out.println(message.toString()));
+		return messages;
 		
 	}
 	

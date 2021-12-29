@@ -15,7 +15,7 @@ if( user ===  null){
 	fetch("/welcome/createUser", {
 		method: "POST",
 		headers: {
-// 			"Content-Type": "application/json",
+			"Content-Type": "application/json",
 		},
 		body: username
 	}).then(response => response.json()).then(user => sessionStorage.setItem("user", JSON.stringify(user)))

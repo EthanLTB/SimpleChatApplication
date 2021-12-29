@@ -1,5 +1,6 @@
 package com.coderscampus.assignment14.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,13 +31,7 @@ private UserService userService;
 //		return messageRepo.save(message);
 //	}
 
-	public Message createAndAddMessageToChannel(Long channelId, Message message) {
-//		Optional<Channel> channelOpt = channelService.findById(channelId);
-//	
-//		channelOpt.ifPresentOrElse(channel -> channel.getMessages().add(newMessage), () -> 
-//		 System.out.println( "Value is empty"));
-		return null;
-	}
+	
 
 	public Message createAndAddMessageToChannel(MessageDto message) {
 			Message newMessage = new Message();
@@ -46,7 +41,10 @@ private UserService userService;
 		newMessage.setUser(user);
 		newMessage.setMessageContent(messageContent);
 		newMessage.setChannel(channelOpt);
-		return messageRepo.save(newMessage);
+		messageRepo.save(newMessage);
+		System.out.println(newMessage);
+		return null;
+				
 		
 	}
 
@@ -55,9 +53,17 @@ private UserService userService;
 //		return messageRepo.findAllByChannel(channelId);
 //	}
 
-	public List<Message> findAll() {
-		
-		return messageRepo.findAll();
+	public List<MessageDto> findAll() {
+		List<Message> messages = messageRepo.findAll();
+		List<MessageDto> newMessages = new ArrayList<MessageDto>();
+		for(Message message : messages) {
+			MessageDto newMessage = new MessageDto();
+			newMessage.setChannelId(message.getChannel().getChannelId());
+			newMessage.setMessageContent(message.getMessageContent());
+			newMessage.setUserId(message.getUser().getUserId());
+			newMessages.add(newMessage);
+		}
+		return newMessages;
 	}
 
 	

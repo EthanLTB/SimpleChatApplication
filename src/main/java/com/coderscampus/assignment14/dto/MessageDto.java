@@ -1,8 +1,14 @@
 package com.coderscampus.assignment14.dto;
 
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MessageDto {
+	@Override
+	public String toString() {
+		return "MessageDto [messageContent=" + messageContent + ", channelId=" + channelId + ", userId=" + userId + "]";
+	}
 	@JsonProperty("messageContent")
 	private String messageContent;
 	@JsonProperty("channelId")
@@ -27,6 +33,22 @@ public class MessageDto {
 	}
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(channelId, messageContent, userId);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MessageDto other = (MessageDto) obj;
+		return Objects.equals(channelId, other.channelId) && Objects.equals(messageContent, other.messageContent)
+				&& Objects.equals(userId, other.userId);
 	}
 	
 }

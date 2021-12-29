@@ -19,7 +19,6 @@ private UserRepository userRepo;
 	public  User createUser(String username) {
 		User user = new User();
 		user.setName(username);
-		
 		return userRepo.save(user);
 		
 	}

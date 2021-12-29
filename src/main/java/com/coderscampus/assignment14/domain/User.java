@@ -47,7 +47,7 @@ public List<Channel> getChannels() {
 public void setChannels(List<Channel> channels) {
 	this.channels = channels;
 }
-@OneToMany(mappedBy = "user")
+@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 public List<Message> getMessages() {
 	return messages;
 }

@@ -40,21 +40,21 @@ function submitOnEnter(event) {
 
 function getMessages(){
 	
-	fetch(`/channels/${channelId}/getMessages`, {
+	fetch(`/channels/{channelId}/getMessages`, {
 		method: "POST",
 		headers: {
 				"Content-Type": "application/json"
 		}
 		}).then(response => response.json).then(messages => { 
-//			messageContainer.innerHTML = ''
-//			messages.forEach(message => {
+			messageContainer.innerHTML = ''
+			messages.forEach(message => {
 				console.log(messages.toString)
-//				messageContainer.innerHTML += `<div>
-//			   	  <span class="name">${user.name}: </span>
-//		  		  <span class="message">${message.messgeContent}</span>
-//				  </div>`
+				messageContainer.innerHTML += `<div>
+			   	  <span class="name">${user.name}: </span>
+		  		  <span class="message">${message.messgeContent}</span>
+				  </div>`
 		})
-//	})
+	})
 	
 	
 }
