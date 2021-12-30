@@ -10,7 +10,7 @@ import com.coderscampus.assignment14.domain.Message;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long>{
-//@Query("select u from messages u where u.channelId = :channelId")
-//	List<Message> findAllByChannel(Long channelId);
+	@Query(value ="SELECT * FROM MESSAGES WHERE channel_Id = ?", nativeQuery = true)
+	List<Message> findAllByChannelId(Long channelId);
 	
 }

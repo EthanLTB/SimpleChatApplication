@@ -33,4 +33,13 @@ private UserRepository userRepo;
 		return userRepo.findById(userId);
 	}
 
+	public String findName(Long userId) {
+		Optional<User> user = userRepo.findById(userId);
+		
+	String name = user.get().getName();
+		return name;
+	}
+
+	
+
 }

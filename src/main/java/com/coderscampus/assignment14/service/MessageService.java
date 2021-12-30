@@ -23,17 +23,9 @@ private ChannelService channelService;
 private MessageRepository messageRepo;
 @Autowired
 private UserService userService;
-
-//	public Message createMessage(Long channelId, String messageContent) {
-//		Message message = new Message();
-//		message.setChannel(channelService.findById(channelId));
-//		message.setMessageContent(messageContent);
-//		return messageRepo.save(message);
-//	}
-
 	
 
-	public Message createAndAddMessageToChannel(MessageDto message) {
+	public Message createMessage(MessageDto message) {
 			Message newMessage = new Message();
 		Optional<Channel> channelOpt = channelService.findById(message.getChannelId());
 		String messageContent = message.getMessageContent();
@@ -48,16 +40,14 @@ private UserService userService;
 		
 	}
 
-//	public List<Message> findByChannelId(Long channelId) {
-//		
-//		return messageRepo.findAllByChannel(channelId);
-//	}
 
-	public List<MessageDto> findAll() {
-		List<Message> messages = messageRepo.findAll();
+
+	public List<MessageDto> findAllByChannelId( Long channelId) {
+		List<Message> messages = messageRepo.findAllByChannelId(channelId);
 		List<MessageDto> newMessages = new ArrayList<MessageDto>();
 		for(Message message : messages) {
 			MessageDto newMessage = new MessageDto();
+			newMessage.setMessageName(userService.findName(message.getUser().getUserId()));
 			newMessage.setChannelId(message.getChannel().getChannelId());
 			newMessage.setMessageContent(message.getMessageContent());
 			newMessage.setUserId(message.getUser().getUserId());
